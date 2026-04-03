@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy en servidor
+    runs-on: self-hosted  # ← usa el runner instalado en tu servidor
+
+    steps:
+      # 1. Traer el código más reciente del repo
+      - name: Actualizar código
+        run: |
+          cd /opt/claude-apikey-chat
+          git pull origin main
+
+      # 2. Rebuildar la imagen Docker y reiniciar el contenedor
+      - name: Rebuild y restart Docker
+        run: |
+          cd /opt/claude-apikey-chat
+          docker compose up --build -d
+
+      # 3. Esperar que el contenedor esté saludable
+      - name: Verificar que el servidor responde
+        run: |
+          sleep 5
+          curl -sf http://localhost:3200/health || exit 1
+
+      # 4. Mostrar la versión desplegada
+      - name: Versión desplegada
+        run: |
+          echo "✓ Deploy completado"
+          curl -s http://localhost:3200/api/status
