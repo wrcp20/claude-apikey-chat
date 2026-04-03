@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/wrcp20/claude-apikey-chat/compare/v1.1.0...v1.2.0) (2026-04-03)
+
+
+### Features
+
+* **ci:** agregar workflow de deploy automatico via self-hosted runner ([2ca6f26](https://github.com/wrcp20/claude-apikey-chat/commit/2ca6f264a7c37ecbdbca6cb448c50860ae1c4935))
+
 ## [1.1.0](https://github.com/wrcp20/claude-apikey-chat/compare/v1.0.0...v1.1.0) (2026-04-03)
 
 
