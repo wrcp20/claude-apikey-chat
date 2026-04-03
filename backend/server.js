@@ -35,6 +35,7 @@ app.get('/api/status', (req, res) => {
     ok: true,
     ready: !!process.env.ANTHROPIC_API_KEY,
     mode: 'api-key',
+    version: process.env.npm_package_version || '1.0.0',
   });
 });
 
