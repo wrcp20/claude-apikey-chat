@@ -38,6 +38,14 @@ app.get('/api/status', (req, res) => {
   });
 });
 
+app.get('/api/models', (req, res) => {
+  res.json([
+    { id: 'claude-haiku-4-5-20251001', label: 'Haiku — rápido' },
+    { id: 'claude-sonnet-4-6',         label: 'Sonnet — equilibrado' },
+    { id: 'claude-opus-4-6',           label: 'Opus — máxima capacidad' },
+  ]);
+});
+
 app.post('/api/chat', async (req, res) => {
   const { messages, model } = req.body;
 
