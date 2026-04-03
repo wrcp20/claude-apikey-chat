@@ -1,0 +1,30 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch:  # solo manual — QA aprueba primero
+
+jobs:
+  deploy-production:
+    name: Deploy en Producción
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Actualizar código
+        run: |
+          cd ${{ vars.DEPLOY_PATH }}
+          git pull origin main
+
+      - name: Rebuild y restart Docker
+        run: |
+          cd ${{ vars.DEPLOY_PATH }}
+          docker compose up --build -d
+
+      - name: Verificar que responde
+        run: |
+          sleep 5
+          curl -sf http://localhost:${{ vars.DEPLOY_PORT }}/health || exit 1
+
+      - name: Deploy completado
+        run: |
+          echo "✓ Producción actualizada"
+          curl -s http://localhost:${{ vars.DEPLOY_PORT }}/api/status
