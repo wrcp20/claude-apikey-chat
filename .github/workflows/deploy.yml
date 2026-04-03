@@ -3,6 +3,7 @@ name: Deploy
 on:
   release:
     types: [published]
+  workflow_dispatch: # permite disparar manualmente desde GitHub o CLI
 
 jobs:
   deploy:
