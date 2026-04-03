@@ -1,0 +1,35 @@
+name: Security Review
+
+on:
+  # Requiere ANTHROPIC_API_KEY en GitHub Secrets para activarse
+  # Descomentar cuando el secret esté configurado:
+  # pull_request:
+  #   branches: [main]
+  workflow_dispatch: # solo manual por ahora
+
+jobs:
+  security-review:
+    name: Revisión de seguridad con Claude
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Claude Security Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            Eres un experto en seguridad. Revisá los cambios de este PR buscando:
+            1. Secrets o credenciales hardcodeadas (ANTHROPIC_API_KEY expuesta en código)
+            2. XSS o inyección en frontend
+            3. Endpoints sin autenticación expuestos a redes no confiables
+            4. ANTHROPIC_API_KEY expuesta en logs, respuestas HTTP o código frontend
+            5. Configuraciones inseguras de Docker o CORS
+
+            Solo reportá vulnerabilidades concretas y explotables (confianza > 80%).
+            Ignorá: DOS, rate limiting, falta de tests, problemas teóricos.
+            Respondé en español con severidad (CRÍTICO/ALTO/MEDIO) y recomendación concreta.

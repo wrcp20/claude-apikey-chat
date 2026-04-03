@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: ./backend
+    container_name: claude-apikey-backend
+    ports:
+      - "3200:3200"
+    env_file:
+      - .env
+    environment:
+      - PORT=3200
+      - NODE_ENV=production
+      - ALLOWED_ORIGINS=*
+    restart: unless-stopped
