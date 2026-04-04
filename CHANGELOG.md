@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.0...v1.3.1) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deploy:** assign runners and environments to staging and production workflows ([b5638a9](https://github.com/wrcp20/claude-apikey-chat/commit/b5638a97b5dd5711fabced93c3268a875bc39376))
+
 ## [1.3.0](https://github.com/wrcp20/claude-apikey-chat/compare/v1.2.0...v1.3.0) (2026-04-03)
 
 
