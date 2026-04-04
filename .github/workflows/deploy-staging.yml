@@ -26,6 +26,13 @@ jobs:
         run: |
           cd "$DEPLOY_PATH"
           docker compose down
+          # NOTA: docker-compose.yml usa container_name hardcodeado "claude-apikey-backend".
+          # Esto causa conflicto cuando existe un contenedor previo de otro contexto
+          # (ej: produccion corriendo en el mismo host, o un run anterior fallido).
+          # TODO: Limpiar esto usando container_name dinamico con variable de entorno:
+          #   container_name: claude-apikey-backend-${COMPOSE_PROJECT_NAME:-production}
+          # y agregando COMPOSE_PROJECT_NAME=staging en el .env de cada ambiente.
+          # Por ahora se fuerza la remocion del contenedor conflictivo.
           docker rm -f claude-apikey-backend 2>/dev/null || true
           docker compose up --build -d
 
