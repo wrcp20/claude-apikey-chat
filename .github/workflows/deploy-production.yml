@@ -6,7 +6,8 @@ on:
 jobs:
   deploy-production:
     name: Deploy en Producción
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, redes]
+    environment: production
 
     steps:
       - name: Actualizar código
