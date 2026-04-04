@@ -12,24 +12,27 @@ jobs:
     runs-on: [self-hosted, wsl]
     environment: staging
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    env:
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
 
     steps:
       - name: Actualizar código
         run: |
-          cd ${{ vars.DEPLOY_PATH }}
+          cd "$DEPLOY_PATH"
           git pull origin main
 
       - name: Rebuild y restart Docker
         run: |
-          cd ${{ vars.DEPLOY_PATH }}
+          cd "$DEPLOY_PATH"
           docker compose up --build -d
 
       - name: Verificar que responde
         run: |
           sleep 5
-          curl -sf http://localhost:${{ vars.DEPLOY_PORT }}/health || exit 1
+          curl -sf "http://localhost:${DEPLOY_PORT}/health" || exit 1
 
       - name: Deploy completado
         run: |
           echo "✓ Staging listo para QA"
-          curl -s http://localhost:${{ vars.DEPLOY_PORT }}/api/status
+          curl -s "http://localhost:${DEPLOY_PORT}/api/status"
