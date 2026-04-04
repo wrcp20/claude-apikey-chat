@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.4](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.3...v1.3.4) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deploy:** agregar docker compose down antes de up en staging ([0647b40](https://github.com/wrcp20/claude-apikey-chat/commit/0647b40decb40f6dbf78404b83832c927dc4bd49))
+* **deploy:** forzar remocion del contenedor antes de recrearlo en staging ([78ddba1](https://github.com/wrcp20/claude-apikey-chat/commit/78ddba1b740665d3a21a00b110a55ef325b1050c))
+* **deploy:** pasar DEPLOY_PATH como env var para evitar conversion MSYS ([904858b](https://github.com/wrcp20/claude-apikey-chat/commit/904858bdad849cc9808da693bd6a99a597285589))
+* **deploy:** puerto del host dinamico via HOST_PORT en docker-compose ([fe6817c](https://github.com/wrcp20/claude-apikey-chat/commit/fe6817c17b07d275f31cf4d80d598b7dbbb06c10))
+
 ## [1.3.3](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.2...v1.3.3) (2026-04-04)
 
 
