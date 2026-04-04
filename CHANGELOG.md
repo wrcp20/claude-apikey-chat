@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.2...v1.3.3) (2026-04-04)
+
+
+### Bug Fixes
+
+* **ci:** ejecutar solo en pull_request, no en push a main ([ecabeb9](https://github.com/wrcp20/claude-apikey-chat/commit/ecabeb9b2346a9a767fed81a4f6512b3bae1bc30))
+
 ## [1.3.2](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.1...v1.3.2) (2026-04-04)
 
 
