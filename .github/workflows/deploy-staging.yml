@@ -1,14 +1,16 @@
 name: Deploy Staging
 
 on:
-  release:
-    types: [published]  # automático al publicar un release
-  workflow_dispatch:    # también manual para pruebas
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   deploy-staging:
     name: Deploy en Staging
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, wsl]
+    environment: staging
 
     steps:
       - name: Actualizar código
