@@ -25,6 +25,7 @@ jobs:
       - name: Rebuild y restart Docker
         run: |
           cd "$DEPLOY_PATH"
+          docker compose down
           docker compose up --build -d
 
       - name: Verificar que responde
