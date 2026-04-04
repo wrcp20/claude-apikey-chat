@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.1...v1.3.2) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deploy:** trigger staging via workflow_run after Release completes ([7580bb3](https://github.com/wrcp20/claude-apikey-chat/commit/7580bb3315a68fc3b128eec07380be366e740dad))
+
 ## [1.3.1](https://github.com/wrcp20/claude-apikey-chat/compare/v1.3.0...v1.3.1) (2026-04-04)
 
 
