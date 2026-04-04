@@ -258,6 +258,60 @@ if (API_TOKEN) {
 
 ---
 
+## CI/CD — Flujo de deploy
+
+El proyecto usa GitHub Actions con dos ambientes: **staging** (WSL local) y **production** (servidor LAN).
+
+### Flujo completo
+
+```
+feat/xxx → PR → CI (lint + flutter analyze)
+              → Merge a main
+              → release-please crea PR "chore: release vX.X.X"
+              → Merge release PR → tag vX.X.X creado
+              → Deploy Staging automatico (runner: wsl-ubuntu-test)
+              → QA en staging OK?
+              → Deploy Production manual (runner: redes)
+```
+
+### Runners self-hosted
+
+| Runner | Maquina | Ambiente |
+|--------|---------|----------|
+| `wsl-ubuntu-test` | WSL Ubuntu en Windows | staging |
+| `redes` | Servidor LAN 192.168.56.101 | production |
+
+### Variables de entorno por ambiente
+
+Configuradas en GitHub → Settings → Environments:
+
+| Variable | Staging | Production |
+|----------|---------|------------|
+| `DEPLOY_PATH` | `//var/www/html/staging` | `/var/www/html/public` |
+| `DEPLOY_PORT` | `3201` | `3200` |
+
+> **Nota sobre DEPLOY_PATH en staging:** El runner WSL convierte paths Unix
+> a rutas Windows via MSYS2. Para evitarlo se usa `//` doble al inicio — MSYS2
+> no convierte paths que empiezan con `//`, y Linux bash los trata igual que `/`.
+
+### Limitacion conocida — container_name hardcodeado
+
+`docker-compose.yml` tiene `container_name: claude-apikey-backend` fijo.
+Esto causa conflicto si existe un contenedor con ese nombre de otro contexto.
+El workflow de staging lo resuelve con `docker rm -f` antes del `up`.
+
+**Mejora pendiente:** usar nombre dinamico con variable de entorno:
+```yaml
+# docker-compose.yml
+container_name: claude-apikey-backend-${COMPOSE_PROJECT_NAME:-production}
+```
+```bash
+# .env de staging
+COMPOSE_PROJECT_NAME=staging
+```
+
+---
+
 ## Advertencias al subir a GitHub
 
 **El repositorio NO contiene credenciales.** Antes de hacer `git push` verifica:
