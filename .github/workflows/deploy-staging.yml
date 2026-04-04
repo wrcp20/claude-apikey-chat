@@ -12,6 +12,9 @@ jobs:
     runs-on: [self-hosted, wsl]
     environment: staging
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    env:
+      MSYS_NO_PATHCONV: 1
+      MSYS2_ARG_CONV_EXCL: "*"
 
     steps:
       - name: Actualizar código
