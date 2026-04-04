@@ -26,6 +26,7 @@ jobs:
         run: |
           cd "$DEPLOY_PATH"
           docker compose down
+          docker rm -f claude-apikey-backend 2>/dev/null || true
           docker compose up --build -d
 
       - name: Verificar que responde
